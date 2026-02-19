@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard21</TargetFramework>
+    <OutputType>Library</OutputType>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugType>embedded</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SPTRefDir>..</SPTRefDir>
+    
+    <AssemblySearchPaths>
+      $(SPTRefDir)/BepInEx/core;
+      $(SPTRefDir)/BepInEx/plugins/spt;
+      $(SPTRefDir)/BepInEx/plugins/spt/ConfigurationManager;
+      $(SPTRefDir)/EscapeFromTarkov_Data/Managed;
+      $(AssemblySearchPaths);
+    </AssemblySearchPaths>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyAssemblyCopyrightAttribute>false</GenerateAssemblyAssemblyCopyrightAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="0Harmony" />
+    <Reference Include="BepInEx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="spt-reflection" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp" />
+    <Reference Include="ItemComponent.Types" />
+    <Reference Include="UnityEngine.CoreModule" />
+    <Reference Include="UnityEngine" />
+  </ItemGroup>
+
+  <Target Name="CopyToBuildFolder" AfterTargets="Build">
+    <PropertyGroup>
+      <DestDir>$(MSBuildProjectDirectory)\build\BepInEx\plugins\</DestDir>
+    </PropertyGroup>
+    <MakeDir Directories="$(DestDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DestDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>
