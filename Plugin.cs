@@ -16,6 +16,7 @@ using SPT.Reflection.Patching;
 
 namespace NestedQuickMove;
 
+[BepInPlugin("com.slpf.nestedquickmove", "NestedQuickMove", "1.0.0")]
 public class Plugin : BaseUnityPlugin
 {
     private void Awake()
