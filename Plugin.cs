@@ -28,6 +28,7 @@ public class Plugin : BaseUnityPlugin
 public class QuickFindPlacePatch : ModulePatch
 {
     private const string StashParentId = "566abbb64bdc2d144c8b457d";
+    private const string MagazineParentId = "5448bc234bdc2d3c308b4569";
 
     protected override MethodBase GetTargetMethod()
     {
@@ -53,6 +54,7 @@ public class QuickFindPlacePatch : ModulePatch
             
             foreach (var nested in topContainer.GetNotMergedItems())
             {
+                if (nested.Template.ParentId == MagazineParentId) continue;
                 if (nested is CompoundItem sub && sub != topContainer && !allContainers.Contains(sub))
                 {
                     allContainers.Add(sub);
