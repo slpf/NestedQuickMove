@@ -10,13 +10,13 @@ using SPT.Reflection.Patching;
 [assembly: AssemblyTitle("Nested Quick Move")]
 [assembly: AssemblyDescription("Quick move (CTRL+CLICK) searches nested containers for stacks and free slots")]
 [assembly: AssemblyCopyright("SLPF")]
-[assembly: AssemblyVersion("1.0.0")]
-[assembly: AssemblyFileVersion("1.0.0")]
-[assembly: AssemblyInformationalVersion("1.0.0")]
+[assembly: AssemblyVersion("1.0.1")]
+[assembly: AssemblyFileVersion("1.0.1")]
+[assembly: AssemblyInformationalVersion("1.0.1")]
 
 namespace NestedQuickMove;
 
-[BepInPlugin("com.slpf.nestedquickmove", "NestedQuickMove", "1.0.0")]
+[BepInPlugin("com.slpf.nestedquickmove", "NestedQuickMove", "1.0.1")]
 public class Plugin : BaseUnityPlugin
 {
     private void Awake()
