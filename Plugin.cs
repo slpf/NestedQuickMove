@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
 using System.Reflection;
@@ -10,13 +10,13 @@ using SPT.Reflection.Patching;
 [assembly: AssemblyTitle("Nested Quick Move")]
 [assembly: AssemblyDescription("Quick move (CTRL+CLICK) searches nested containers for stacks and free slots")]
 [assembly: AssemblyCopyright("SLPF")]
-[assembly: AssemblyVersion("1.0.1")]
-[assembly: AssemblyFileVersion("1.0.1")]
-[assembly: AssemblyInformationalVersion("1.0.1")]
+[assembly: AssemblyVersion("1.1.0")]
+[assembly: AssemblyFileVersion("1.1.0")]
+[assembly: AssemblyInformationalVersion("1.1.0")]
 
 namespace NestedQuickMove;
 
-[BepInPlugin("com.slpf.nestedquickmove", "NestedQuickMove", "1.0.1")]
+[BepInPlugin("com.slpf.nestedquickmove", "NestedQuickMove", "1.1.0")]
 public class Plugin : BaseUnityPlugin
 {
     private void Awake()
@@ -32,7 +32,7 @@ public class QuickFindPlacePatch : ModulePatch
 
     protected override MethodBase GetTargetMethod()
     {
-        return AccessTools.Method(typeof(InteractionsHandlerClass), nameof(InteractionsHandlerClass.QuickFindAppropriatePlace));
+        return AccessTools.Method(typeof(ItemManipulator), nameof(ItemManipulator.QuickFindAppropriatePlace));
     }
 
     [PatchPrefix]
@@ -43,7 +43,7 @@ public class QuickFindPlacePatch : ModulePatch
         if (item == null || targets == null) return;
 
         var targetList = targets.ToList();
-        
+
         if (!targetList.Any()) return;
 
         var allContainers = new List<CompoundItem>(targetList);
@@ -51,7 +51,7 @@ public class QuickFindPlacePatch : ModulePatch
         foreach (var topContainer in targetList)
         {
             if (topContainer.Template.ParentId == StashParentId) continue;
-            
+
             foreach (var nested in topContainer.GetNotMergedItems())
             {
                 if (nested.Template.ParentId == MagazineParentId) continue;
